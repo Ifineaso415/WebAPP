@@ -43,7 +43,7 @@ function getAllRecords() {
         nets: record.fields.Nets,
         access: record.fields.Access,
         hours: record.fields.Hours,
-        img: record.fields.Image ? record.fields.Image[0].url : "Pickle.jpg",
+       img: record.fields.Image ? record.fields.Image[0].url : "images/default.jpg",
       }));
 
       const indoorList = courts.filter((c) => c.indoor);
