@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Pickleball in SF</title>
+    <meta name="description" content="Find indoor and outdoor pickleball courts in San Francisco. Learn about the game and discover places to play!" />
 
     <!-- Bootstrap CSS -->
     <link
@@ -11,71 +12,71 @@
       rel="stylesheet"
     />
 
-    <!-- Font for icons -->
+    <!-- Font Awesome for icons -->
     <script
       src="https://kit.fontawesome.com/a2e8e2ef5f.js"
       crossorigin="anonymous"
       defer
     ></script>
 
-    <!--  CSS -->
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-
-    <!-- Airtable data -->
-       <div class="container-fluid tables">
-      <div class="row g-3" id="pickleball"></div>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+        <div class="container">
+          <span class="navbar-brand fw-bold">Pickleball in SF</span>
         </div>
+      </nav>
+    </header>
 
-    <!-- NavBar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
-      <div class="container">
-          Pickleball in SF
-        </a>
-      </div>
-    </nav>
-
-    <!-- Intro Card -->
-    <div class="container mb-5">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">What is Pickleball?</h5>
-          <img
-            src="images/images.jpeg"
-            class="img-fluid mb-3"
-            alt="People playing pickleball"
-          />
-          <p class="card-text">
-            Pickleball is fun, social and friendly! The rules are simple and the
-            game is easy for beginners to learn, but can develop into a
-            fast-paced, competitive game.
-          </p>
-          <a
-            href="https://usapickleball.org/what-is-pickleball/"
-            target="_blank"
-            class="btn btn-primary"
-            >Learn More!</a
-          >
+    <main>
+      <!-- Intro Card -->
+      <div class="container mb-5">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title h4">What is Pickleball?</h1>
+            <img
+              src="images/images.jpeg"
+              class="img-fluid mb-3"
+              alt="People playing pickleball"
+            />
+            <p class="card-text">
+              Pickleball is fun, social and friendly! The rules are simple and the
+              game is easy for beginners to learn, but can develop into a
+              fast-paced, competitive game.
+            </p>
+            <a
+              href="https://usapickleball.org/what-is-pickleball/"
+              target="_blank"
+              class="btn btn-primary"
+              >Learn More!</a
+            >
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Indoor Section -->
-    <section id="indoor">
-      <div class="container py-4">
-        <h2 class="mb-4">Indoor Courts</h2>
-        <div class="row" id="indoor-list"></div>
-      </div>
-    </section>
+      <!-- Indoor Section -->
+      <section id="indoor">
+        <div class="container py-4">
+          <h2 class="mb-4">Indoor Courts</h2>
+          <div class="row" id="indoor-list"></div>
+        </div>
+      </section>
 
-    <!-- Outdoor Section -->
-    <section id="outdoor">
-      <div class="container py-4">
-        <h2 class="mb-4">Outdoor Courts</h2>
-        <div class="row" id="outdoor-list"></div>
-      </div>
-    </section>
+      <!-- Outdoor Section -->
+      <section id="outdoor">
+        <div class="container py-4">
+          <h2 class="mb-4">Outdoor Courts</h2>
+          <div class="row" id="outdoor-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-light text-center py-3 mt-5 shadow-sm">
+      &copy; 2025 Pickleball in SF. All rights reserved.
+    </footer>
 
     <!-- Your JavaScript -->
     <script src="script.js"></script>
