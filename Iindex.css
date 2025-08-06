@@ -1,5 +1,5 @@
 body {
-  background: #ffffffcf;
+  background-color: #4CBB17;
   font-family: 'Segoe UI', Arial, sans-serif;
 }
 
@@ -28,7 +28,7 @@ h1, h2 {
 
 footer {
   font-size: 1rem;
-  color: #555;
+  color: #4CBB17;
 }
 
 @media (max-width: 768px) {

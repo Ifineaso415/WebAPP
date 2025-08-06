@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Pickleball in SF</title>
-    <meta name="description" content="Find indoor and outdoor pickleball courts in San Francisco. Learn about the game and discover places to play!" />
+    <meta
+      name="description"
+      content="Find indoor and outdoor pickleball courts in San Francisco. Learn about the game and discover places to play!"
+    />
 
     <!-- Bootstrap CSS -->
     <link
@@ -12,7 +15,7 @@
       rel="stylesheet"
     />
 
-    <!-- Font Awesome for icons -->
+    <!-- Font Awesome -->
     <script
       src="https://kit.fontawesome.com/a2e8e2ef5f.js"
       crossorigin="anonymous"
@@ -23,62 +26,67 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- Navbar -->
     <header>
       <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
         <div class="container">
           <span class="navbar-brand fw-bold">Pickleball in SF</span>
+          <div>
+            <a href="indoor.html" class="btn btn-outline-primary me-2">Indoor Courts</a>
+            <a href="outdoor.html" class="btn btn-outline-success">Outdoor Courts</a>
+          </div>
         </div>
       </nav>
     </header>
 
     <main>
-      <!-- Intro Card -->
+      <!-- What is Pickleball -->
       <div class="container mb-5">
         <div class="card">
           <div class="card-body">
             <h1 class="card-title h4">What is Pickleball?</h1>
             <img
-              src="images/images.jpeg"
+              src="aleksander-ceres-8b2a1c7e3f4f.jpg"
               class="img-fluid mb-3"
-              alt="People playing pickleball"
+              alt=""
             />
             <p class="card-text">
               Pickleball is fun, social and friendly! The rules are simple and the
               game is easy for beginners to learn, but can develop into a
               fast-paced, competitive game.
             </p>
-            <a
-              href="https://usapickleball.org/what-is-pickleball/"
-              target="_blank"
-              class="btn btn-primary"
-              >Learn More!</a
-            >
           </div>
         </div>
       </div>
 
-      <!-- Indoor Section -->
-      <section id="indoor">
-        <div class="container py-4">
-          <h2 class="mb-4">Indoor Courts</h2>
-          <div class="row" id="indoor-list"></div>
+      <!-- Featured Court Carousel -->
+      <div class="container text-center my-5">
+        <h2 class="mb-4">Featured Courts</h2>
+        <div id="featured-carousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner" id="carousel-inner"></div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#featured-carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#featured-carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
         </div>
-      </section>
 
-      <!-- Outdoor Section -->
-      <section id="outdoor">
-        <div class="container py-4">
-          <h2 class="mb-4">Outdoor Courts</h2>
-          <div class="row" id="outdoor-list"></div>
+        <div class="mt-4">
+          <a href="indoor.html" class="btn btn-primary btn-lg mx-2">Indoor Courts</a>
+          <a href="outdoor.html" class="btn btn-success btn-lg mx-2">Outdoor Courts</a>
         </div>
-      </section>
+      </div>
     </main>
 
     <footer class="bg-light text-center py-3 mt-5 shadow-sm">
       &copy; 2025 Pickleball in SF. All rights reserved.
     </footer>
 
-    <!-- Your JavaScript -->
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
