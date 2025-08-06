@@ -9,8 +9,7 @@ const indoorCourts = [
     courts: 1,
     map: "https://maps.app.goo.gl/J1B2Ld3BruhsXz5m9",
     type: "Indoor",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Eureka_Valley_Recreation_Center%2C_San_Francisco.jpg/640px-Eureka_Valley_Recreation_Center%2C_San_Francisco.jpg",
+    image: "https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrMqxvQYuDnu89gbBTc02SgljP9rznmSWpmytBgyy-gj0KNNqxUTYx8rOpTT6aQXlMgeVcbNKS6Y26A-EFyZEIIT60NVJwwVo2KNUdZuThmBSkrf-LMnlaJGaDFxTGs7iUFVRWu=s1360-w1360-h1020-rw",
   },
   {
     name: "Hamilton Rec Center",
@@ -20,7 +19,7 @@ const indoorCourts = [
     courts: 1,
     map: "https://maps.app.goo.gl/JLhJ2LBwqxwMbYxn6",
     type: "Indoor",
-    image: "https://sfrecpark.org/wp-content/uploads/2020/06/hamilton_rec.jpg",
+    image: "https://lh3.googleusercontent.com/gps-cs-s/AC9h4npFHL_CxfRSZPS9n_LhUi3En_jtdwTQT8fZwSym1McVRPoex_AyRPex3_6jspVts1efdRX_sRSEkdReD6MBkv07sx0XgCR9iz2ilwiStTWq1HrUq8egkKaX7tPUpcZh4_mzEw19_w=s1360-w1360-h1020-rw",
   },
 ];
 
