@@ -1,92 +1,189 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Pickleball in SF</title>
-    <meta
-      name="description"
-      content="Find indoor and outdoor pickleball courts in San Francisco. Learn about the game and discover places to play!"
-    />
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pickleball in SF</title>
+  <meta name="description" content="Find indoor and outdoor pickleball courts in San Francisco. Learn about the game and discover places to play!" />
 
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-    <!-- Font Awesome -->
-    <script
-      src="https://kit.fontawesome.com/a2e8e2ef5f.js"
-      crossorigin="anonymous"
-      defer
-    ></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <!-- Navbar -->
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
-        <div class="container">
-          <span class="navbar-brand fw-bold">Pickleball in SF</span>
-          <div>
-            <a href="indoor.html" class="btn btn-outline-primary me-2">Indoor Courts</a>
-            <a href="outdoor.html" class="btn btn-outline-success">Outdoor Courts</a>
-          </div>
-        </div>
-      </nav>
-    </header>
+  <!-- Custom CSS -->
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f8f9fa;
+      color: #222;
+    }
 
-    <main>
-      <!-- What is Pickleball -->
-      <div class="container mb-5">
-        <div class="card">
-          <div class="card-body">
-            <h1 class="card-title h4">What is Pickleball?</h1>
-            <img
-              src="aleksander-ceres-8b2a1c7e3f4f.jpg"
-              class="img-fluid mb-3"
-              alt=""
-            />
-            <p class="card-text">
-              Pickleball is fun, social and friendly! The rules are simple and the
-              game is easy for beginners to learn, but can develop into a
-              fast-paced, competitive game.
-            </p>
-          </div>
-        </div>
+    header {
+      background: #344732;
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 4px 6px rgb(0 0 0 / 0.1);
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      font-size: 1.75rem;
+      letter-spacing: 1px;
+    }
+
+    .btn-outline-primary {
+      border-color: #27ae60;
+      color: #27ae60;
+      font-weight: 600;
+    }
+
+    .btn-outline-primary:hover {
+      background: #27ae60;
+      color: white;
+    }
+
+    .btn-outline-success {
+      border-color: #2980b9;
+      color: #2980b9;
+      font-weight: 600;
+    }
+
+    .btn-outline-success:hover {
+      background: #2980b9;
+      color: white;
+    }
+
+    /* Hero Section */
+    .hero {
+      position: relative;
+      background-image: url('https://piedmontexedra.com/wp-content/uploads/2024/05/BCN-20210226-GOLDMAN-01-1170x658.jpeg');
+      background-size: cover;
+      background-position: center;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 0 2px 10px rgb(52, 71, 50);
+      border-radius: 12px;
+      margin-bottom: 3rem;
+    }
+
+    .hero-text {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 2rem 3rem;
+      border-radius: 12px;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .hero-text h1 {
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-text p {
+      font-size: 1.25rem;
+      line-height: 1.5;
+    }
+
+    /* Carousel Cards */
+    .carousel-item .card {
+      box-shadow: 0 8px 20px rgb(0 0 0 / 0.15);
+      border: none;
+      border-radius: 15px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .carousel-item .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 30px rgb(0 0 0 / 0.3);
+    }
+
+    .card-img-top {
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      max-height: 250px;
+      object-fit: cover;
+    }
+
+    footer {
+      background: #344732;
+      color: white;
+      padding: 1rem 0;
+      text-align: center;
+      margin-top: 4rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+
+    /* Buttons container */
+    .btn-container {
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container d-flex justify-content-between align-items-center">
+      <span class="navbar-brand">Pickleball in SF</span>
+      <div>
+        <a href="indoor.html" class="btn btn-outline-primary me-2">Indoor Courts</a>
+        <a href="outdoor.html" class="btn btn-outline-success">Outdoor Courts</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Discover Pickleball in San Francisco</h1>
+        <p>Pickleball is fun, social, and easy to learn — the perfect way to get active and meet people.</p>
+      </div>
+    </section>
+
+    <!-- Featured Courts Carousel -->
+    <section class="text-center">
+      <h2 class="mb-4 fw-bold">Featured Courts</h2>
+      <div id="featured-carousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner" id="carousel-inner"></div>
+
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#featured-carousel"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#featured-carousel"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
 
-      <!-- Featured Court Carousel -->
-      <div class="container text-center my-5">
-        <h2 class="mb-4">Featured Courts</h2>
-        <div id="featured-carousel" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner" id="carousel-inner"></div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#featured-carousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#featured-carousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-
-        <div class="mt-4">
-          <a href="indoor.html" class="btn btn-primary btn-lg mx-2">Indoor Courts</a>
-          <a href="outdoor.html" class="btn btn-success btn-lg mx-2">Outdoor Courts</a>
-        </div>
+      <div class="btn-container">
+        <a href="indoor.html" class="btn btn-primary btn-lg mx-2">Indoor Courts</a>
+        <a href="outdoor.html" class="btn btn-success btn-lg mx-2">Outdoor Courts</a>
       </div>
-    </main>
+    </section>
+  </main>
 
-    <footer class="bg-light text-center py-3 mt-5 shadow-sm">
-      &copy; 2025 Pickleball in SF. All rights reserved.
-    </footer>
+  <footer>
+    &copy; 2025 Pickleball in SF. All rights reserved.
+  </footer>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
 </html>

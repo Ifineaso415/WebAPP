@@ -7,7 +7,8 @@ const outdoorCourts = [
     hours: "6am-10pm",
     nets: 4,
     courts: 2,
-    map: "https://maps.app.goo.gl/6w6kQ2QkQ2QkQ2Qk7",
+    map: "https://maps.app.goo.gl/UYhycVNDrhVrRaRV7",
+    image: "https://upload.wikimedia.org/commons/2/21/Alta_Plaza_Park_SF_2021.jpg",
   },
   {
     name: "Buena Vista Park",

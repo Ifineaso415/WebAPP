@@ -73,12 +73,12 @@ function createSlide(court, isActive) {
 
   return `
     <div class="carousel-item ${isActive ? "active" : ""}">
-      <div class="card mx-auto" style="max-width: 500px;">
-        <img src="${imgSrc}" class="card-img-top" alt="${court.name}" />
+      <div class="card court-card mx-auto" style="max-width: 500px;">
+        <img src="${imgSrc}" class="card-img-top court-image" alt="${court.name}" />
         <div class="card-body">
           <h5 class="card-title">
             ${court.name}
-            <span class="badge bg-${court.type === "Indoor" ? "primary" : "success"}">${court.type}</span>
+            <span class="badge type-badge ${court.type.toLowerCase()}">${court.type}</span>
           </h5>
           <p class="card-text">
             ${court.addr}<br />
