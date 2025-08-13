@@ -77,7 +77,6 @@ async function showCourtDetail(recordId, type = "outdoor") {
               ? `<a href="${fields.Map}" target="_blank" class="btn btn-outline-dark btn-sm">View on Map</a>`
               : ""
           }
-          <button class="btn btn-secondary mt-2" onclick="fetchAndRenderCourts('outdoor')">Back to List</button>
         </div>
       </div>
     `;
@@ -87,45 +86,195 @@ async function showCourtDetail(recordId, type = "outdoor") {
 }
 
 // On page load, show outdoor courts list
-import('./Index.js').then(() => {
-  window.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('carousel-inner');
-    container.innerHTML = [
-      {
-        name: 'Moscone Playground',
-        address: '1800 Chestnut St, San Francisco, CA 94123',
-        image: 'images/Moscone Playground.webp',
-        zip: '94123',
-        courts: 6,
-        availability: 'Open',
-        type: 'Outdoor',
-        map: 'https://goo.gl/maps/xyz3'
-      },
-      {
-        name: 'Jackson Playground',
-        address: '1500 Mariposa St, San Francisco, CA 94107',
-        image: 'images/Jackson Playground_files/499578554_18069213649949193_3539798198266338672_n.jpg',
-        zip: '94107',
-        courts: 4,
-        availability: 'Open',
-        type: 'Outdoor',
-        map: 'https://goo.gl/maps/xyz4'
-      }
-    ].map(court => `
-      <div class="card court-card mx-auto mb-3" style="max-width: 500px;">
-        <img src="${court.image}" class="card-img-top court-image" alt="${court.name}" />
-        <div class="card-body">
-          <h5 class="card-title">${court.name}</h5>
-          <p class="card-text">
-            <strong>Address:</strong> ${court.address}<br />
-            <strong>Zip:</strong> ${court.zip}<br />
-            <strong>Number of Courts:</strong> ${court.courts}<br />
-            <strong>Availability:</strong> ${court.availability}<br />
-            <strong>Type:</strong> ${court.type}<br />
-          </p>
-          <a href="${court.map}" target="_blank" class="btn btn-outline-dark btn-sm">View on Map</a>
+document.addEventListener('DOMContentLoaded', function() {
+  const courts = [
+    {
+      name: 'Moscone Playground',
+      address: '1800 Chestnut St',
+      zip: '94123',
+      map: 'https://maps.google.com/?q=Moscone+Playground+1800+Chestnut+St+San+Francisco+CA+94123',
+      courts: 6,
+      availability: 'open play',
+      image: 'images/Moscone Playground.webp'
+    },
+    {
+      name: 'Jackson Playground',
+      address: '1500 Mariposa St',
+      zip: '94107',
+      map: 'https://maps.google.com/?q=Jackson+Playground+1500+Mariposa+St+San+Francisco+CA+94107',
+      courts: 4,
+      availability: 'open play',
+      image: 'images/Jackson Playground.jpg'
+    },
+    {
+      name: 'Alta Plaza Park',
+      address: 'Jackson St & Steiner St',
+      zip: '94115',
+      map: 'https://maps.google.com/?q=Alta+Plaza+Park+Jackson+St+%26+Steiner+St+San+Francisco+CA+94115',
+      courts: 2,
+      availability: 'open play',
+      image: 'images/Alta Plaza Park.webp'
+    },
+    {
+      name: 'Buena Vista Park',
+      address: 'Buena Vista Ave E & Duboce Ave',
+      zip: '94117',
+      map: 'https://maps.google.com/?q=Buena+Vista+Park+Buena+Vista+Ave+E+%26+Duboce+Ave+San+Francisco+CA+94117',
+      courts: 2,
+      availability: 'open play',
+      image: 'images/Buena Vista Park.jpg'
+    },
+    {
+      name: 'Goldman Tennis Center (GGP)',
+      address: 'Golden Gate Park, Nancy Pelosi Dr',
+      zip: '94117',
+      map: 'https://maps.google.com/?q=Goldman+Tennis+Center+Golden+Gate+Park+Nancy+Pelosi+Dr+San+Francisco+CA+94117',
+      courts: 4,
+      availability: 'open play',
+      image: 'images/Goldman Tennis Center (GGP).jpg'
+    },
+    {
+      name: 'Parkside Square',
+      address: '28th Ave & Vicente St',
+      zip: '94116',
+      map: 'https://maps.google.com/?q=Parkside+Square+28th+Ave+%26+Vicente+St+San+Francisco+CA+94116',
+      courts: 2,
+      availability: 'open play',
+      image: 'images/Parkside Square.jpeg'
+    },
+    {
+      name: 'Presidio Wall Playground',
+      address: 'West Pacific Ave & Spruce St',
+      zip: '94118',
+      map: 'https://maps.google.com/?q=Presidio+Wall+Playground+West+Pacific+Ave+%26+Spruce+St+San+Francisco+CA+94118',
+      courts: 3,
+      availability: 'open play',
+      image: 'images/Presidio Wall Playground.jpeg'
+    },
+    {
+      name: 'States Street Playground',
+      address: '50 States St',
+      zip: '94114',
+      map: 'https://maps.google.com/?q=States+Street+Playground+50+States+St+San+Francisco+CA+94114',
+      courts: 1,
+      availability: 'open play',
+      image: 'images/States Street Playground.png'
+    },
+    {
+      name: 'Carl Larsen Park',
+      address: '19th Ave & Vicente St',
+      zip: '94116',
+      map: 'https://maps.google.com/?q=Carl+Larsen+Park+19th+Ave+%26+Vicente+St+San+Francisco+CA+94116',
+      courts: 2,
+      availability: 'open play',
+      image: 'images/Carl Larsen.jpg'
+    },
+    {
+      name: 'Crocker Amazon',
+      address: '799 Moscow St',
+      zip: '94112',
+      map: 'https://maps.google.com/?q=Crocker+Amazon+799+Moscow+St+San+Francisco+CA+94112',
+      courts: 2,
+      availability: 'open play',
+      image: 'images/Crocker Amazon.jpg'
+    },
+    {
+      name: 'East Cut',
+      address: 'Beale St & Howard St',
+      zip: '94105',
+      map: 'https://maps.google.com/?q=East+Cut+Beale+St+%26+Howard+St+San+Francisco+CA+94105',
+      courts: 2,
+      availability: 'open play',
+      image: 'images/East Cut.jpg'
+    },
+    {
+      name: 'Louis Sutter Pickleball Courts',
+      address: 'Sutter Ave & University St',
+      zip: '94134',
+      map: 'https://maps.google.com/?q=Louis+Sutter+Pickleball+Courts+Sutter+Ave+%26+University+St+San+Francisco+CA+94134',
+      courts: 4,
+      availability: 'open play',
+      image: 'images/Louis Sutter Pickleball Courts.jpg'
+    },
+    {
+      name: 'Richmond Playground',
+      address: '18th Ave & Lake St',
+      zip: '94121',
+      map: 'https://maps.google.com/?q=Richmond+Playground+18th+Ave+%26+Lake+St+San+Francisco+CA+94121',
+      courts: 2,
+      availability: 'open play',
+      image: 'images/Richmond Playground.jpeg'
+    },
+    {
+      name: 'Rossi Playground',
+      address: '600 Arguello Blvd',
+      zip: '94118',
+      map: 'https://maps.google.com/?q=Rossi+Playground+600+Arguello+Blvd+San+Francisco+CA+94118',
+      courts: 2,
+      availability: 'open play',
+      image: 'images/Rossi Playground.jpg'
+    },
+    {
+      name: 'Stern Grove',
+      address: '19th Ave & Sloat Blvd',
+      zip: '94132',
+      map: 'https://maps.google.com/?q=Stern+Grove+19th+Ave+%26+Sloat+Blvd+San+Francisco+CA+94132',
+      courts: 2,
+      availability: 'open play',
+      image: 'images/Stern Grove.jpeg'
+    }
+  ];
+  const container = document.getElementById('carousel-inner');
+  function renderList() {
+    let html = '<div class="row g-4 justify-content-center">';
+    courts.forEach((court, idx) => {
+      html += `
+        <div class="col-12 col-md-6 col-lg-4 d-flex justify-content-center">
+          <div class="card court-card mb-3" style="max-width: 360px; min-width: 300px; min-height: 420px; height: 420px;">
+            <img src="${court.image}" class="card-img-top court-image" alt="${court.name}" style="cursor:pointer;" onclick="showCourtDetail(${idx})" />
+            <div class="card-body text-center">
+              <h5 class="card-title">${court.name}</h5>
+            </div>
+          </div>
+        </div>
+      `;
+    });
+    html += '</div>';
+    container.innerHTML = html;
+    document.removeEventListener('mousedown', outsideDetailClick);
+  }
+  window.showCourtDetail = function(idx) {
+    const court = courts[idx];
+    container.innerHTML = `
+      <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+        <div class="card court-card" id="detail-card" style="max-width: 400px; min-width: 300px; min-height: 420px; height: 420px;">
+          <img src="${court.image}" class="card-img-top court-image" alt="${court.name}" />
+          <div class="card-body">
+            <h5 class="card-title">${court.name}</h5>
+            <p class="card-text">
+              <strong>Address:</strong> ${court.address}<br />
+              <strong>Zip:</strong> ${court.zip}<br />
+              <strong>Number of Courts:</strong> ${court.courts}<br />
+              <strong>Availability:</strong> ${court.availability}<br />
+            </p>
+            <a href="${court.map}" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark btn-sm">View on Map</a>
+          </div>
         </div>
       </div>
-    `).join('');
-  });
+    `;
+    setTimeout(() => {
+      document.addEventListener('mousedown', outsideDetailClick);
+    }, 0);
+  };
+  function outsideDetailClick(e) {
+    const card = document.getElementById('detail-card');
+    if (!card) return;
+    if (card.contains(e.target)) {
+      // If clicking the map link, don't close
+      if (e.target.tagName === 'A') return;
+      return;
+    }
+    renderList();
+  }
+  renderList();
 });

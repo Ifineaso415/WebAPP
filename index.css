@@ -1,7 +1,12 @@
 /* General Body and Typography */
+:root {
+  --emerald: #27ae60;
+  --emerald-dark: #219150;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
-  background: #f8f9fa;
+  background: linear-gradient(120deg, var(--emerald) 0%, #2980b9 100%);
   color: #222;
 }
 
@@ -41,10 +46,26 @@ header {
   color: white;
 }
 
+.navbar-emerald {
+  background: linear-gradient(90deg, var(--emerald) 70%, var(--emerald-dark) 100%) !important;
+  box-shadow: 0 2px 12px rgba(39, 174, 96, 0.10);
+}
+.navbar-emerald .navbar-brand,
+.navbar-emerald .nav-link {
+  color: #fff !important;
+}
+.navbar-emerald .nav-link.active,
+.navbar-emerald .nav-link:focus,
+.navbar-emerald .nav-link:hover {
+  color: #fff !important;
+  background: rgba(39, 174, 96, 0.18);
+  border-radius: 6px;
+}
+
 /* Hero Section */
 .hero {
   position: relative;
-  background-image: url('https://images.unsplash.com/photo-1594737625785-759c94dc43a9?auto=format&fit=crop&w=1470&q=80');
+  background-image: url('https://piedmontexedra.com/wp-content/uploads/2024/05/BCN-20210226-GOLDMAN-01-1170x658.jpeg');
   background-size: cover;
   background-position: center;
   height: 400px;
@@ -52,17 +73,28 @@ header {
   align-items: center;
   justify-content: center;
   color: white;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+  text-shadow: 0 2px 10px rgb(52, 71, 50);
   border-radius: 12px;
   margin-bottom: 3rem;
 }
-
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(39, 174, 96, 0.45); /* emerald overlay */
+  z-index: 1;
+}
 .hero-text {
+  position: relative;
+  z-index: 2;
   background: rgba(0, 0, 0, 0.4);
   padding: 2rem 3rem;
   border-radius: 12px;
   max-width: 600px;
   text-align: center;
+  margin: 0 auto;
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(44,62,80,0.25);
 }
 
 .hero-text h1 {
@@ -79,9 +111,11 @@ header {
 /* Carousel Cards */
 .court-card {
   box-shadow: 0 8px 20px rgb(0 0 0 / 0.15);
-  border: none;
+  border: 2px solid var(--emerald);
   border-radius: 15px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .court-card:hover {
@@ -105,18 +139,311 @@ header {
   background-color: #2980b9; /* Blue for Outdoor */
 }
 
+/* Card Flip Animation */
+.flip-card {
+  perspective: 1000px;
+  margin-bottom: 0;
+  display: block;
+  width: 100%;
+  max-width: 500px;
+  min-height: 350px;
+}
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(.4,2,.6,1);
+  transform-style: preserve-3d;
+}
+.flip-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 15px;
+}
+.flip-card-front {
+  z-index: 2;
+  background: #fff;
+}
+.flip-card-back {
+  transform: rotateY(180deg);
+  background: #f8f9fa;
+  z-index: 3;
+}
+.flip-card:hover .flip-card-inner {
+  transform: none;
+}
+.flip-card + .flip-card {
+  margin-top: 2.5rem;
+}
+
+/* List layout for cards */
+.courts-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.courts-list .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+.card.court-card {
+  width: 100%;
+  max-width: 400px;
+  min-width: 300px;
+  min-height: 420px;
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-shadow: 0 8px 24px rgba(44, 71, 50, 0.10);
+  border-radius: 18px;
+  background: #fff;
+  transition: box-shadow 0.2s;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
+}
+.card.court-card:hover {
+  box-shadow: 0 16px 32px rgba(44, 71, 50, 0.18);
+}
+.card-img-top.court-image {
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+.card-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #344732;
+}
+.btn-outline-dark.btn-sm {
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.btn-secondary.mt-2 {
+  border-radius: 8px;
+}
+@media (max-width: 991px) {
+  .card.court-card {
+    max-width: 95vw;
+  }
+}
+
 /* Footer */
 footer {
   background: #344732;
-  color: white;
+  color: #e6f2e6;
   padding: 1rem 0;
   text-align: center;
   margin-top: 4rem;
   font-weight: 300;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
+  font-size: 1.05rem;
 }
 
 /* Buttons container */
 .btn-container {
   margin-top: 2rem;
+}
+
+/* Fade-in Animation */
+.fade-in {
+  animation: fadeIn 0.7s cubic-bezier(.4,2,.6,1);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Card Hover Effect */
+.card-hover {
+  transition: transform 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.2s;
+}
+.card-hover:hover {
+  transform: scale(1.045) rotate(-1deg);
+  box-shadow: 0 12px 32px rgba(44,71,50,0.18);
+  z-index: 2;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(44,71,50,0.18);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100vw;
+}
+
+/* Modal Animation */
+.animate-modal {
+  animation: popIn 0.4s cubic-bezier(.4,2,.6,1);
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.85); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Close Button */
+.btn-close {
+  background: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  border: none;
+  width: 2.2rem;
+  height: 2.2rem;
+  font-size: 1.5rem;
+  opacity: 0.8;
+  transition: background 0.2s;
+}
+.btn-close:hover {
+  background: #e6f2e6;
+  opacity: 1;
+}
+
+/* Splash Overlay */
+.splash-overlay {
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(120deg, #27ae60 60%, #2980b9 100%);
+  background-image: url('https://images.unsplash.com/photo-1594737625785-759c94dc43a9?auto=format&fit=crop&w=1470&q=80');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.7s ease;
+}
+.splash-overlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+.splash-content {
+  background: rgba(44, 62, 80, 0.85);
+  padding: 3rem 2.5rem;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(44, 71, 50, 0.18);
+  text-align: center;
+  color: #fff;
+}
+.splash-btn {
+  font-size: 1.15rem;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  background: #27ae60;
+  color: #fff;
+  font-weight: 700;
+  border: none;
+  box-shadow: 0 4px 16px rgba(44,71,50,0.13);
+  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+.splash-btn:hover {
+  background: #219150;
+  color: #fff;
+  transform: scale(1.04);
+}
+
+.btn,
+.btn-outline-dark,
+.splash-btn {
+  background-color: var(--emerald) !important;
+  border-color: var(--emerald-dark) !important;
+  color: #fff !important;
+}
+.btn:hover,
+.btn-outline-dark:hover,
+.splash-btn:hover {
+  background-color: var(--emerald-dark) !important;
+  border-color: var(--emerald) !important;
+}
+
+a {
+  color: var(--emerald);
+}
+a:hover {
+  color: var(--emerald-dark);
+}
+
+/* Carousel Styling */
+.carousel-inner {
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(39, 174, 96, 0.10);
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.carousel-caption {
+  background: rgba(39, 174, 96, 0.75) !important;
+  color: #fff !important;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+/* Court Layout Styling */
+#court-layout img {
+  border: 2px solid var(--emerald);
+  box-shadow: 0 2px 16px rgba(39, 174, 96, 0.12);
+}
+#court-layout ul {
+  margin-top: 1rem;
+  margin-bottom: 0;
+  padding-left: 1.2rem;
+  color: #222;
+  font-size: 1.08rem;
+}
+#court-layout small {
+  color: #2980b9;
+}
+
+section h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+section {
+  margin-left: auto;
+  margin-right: auto;
+}
+.modal-content.bg-transparent {
+  background: transparent !important;
+  box-shadow: none;
+}
+.modal-content img {
+  border: 2px solid var(--emerald);
+  box-shadow: 0 4px 32px rgba(39, 174, 96, 0.18);
+}
+
+/* Page Fade Transition */
+.page-fade {
+  opacity: 1;
+  transition: opacity 0.5s cubic-bezier(.4,0,.2,1);
+}
+.page-fade.fade-out {
+  opacity: 0;
 }
