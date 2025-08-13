@@ -3,7 +3,7 @@
 // Airtable API constants
 const OUTDOOR_URL = "https://api.airtable.com/v0/appyPO0xrhPPEy72s/Outdoor";
 const INDOOR_URL = "https://api.airtable.com/v0/appyPO0xrhPPEy72s/Indoor";
-const AIRTABLE_TOKEN = "patSMmsMZV3ld7iSm.adf9b201bf5b4fad908e372c585816eb2521b5e7086b7a3c9418caaa099ad817";
+const AIRTABLE_TOKEN = "patYyGMLKmvINy9XH.60aeff31972e965ec2110dcd9652fcebcd43964f633a2af0fc18aa72f5b191a5";
 
 // Fetch courts from Airtable and render simple cards
 async function fetchAndRenderCourts(type = "indoor") {
@@ -103,6 +103,45 @@ async function showCourtDetail(recordId, type = "indoor") {
 }
 
 // On page load, show indoor courts list
-document.addEventListener('DOMContentLoaded', function() {
-  fetchAndRenderCourts('indoor');
+import('./Index.js').then(() => {
+  window.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('carousel-inner');
+    container.innerHTML = [
+      {
+        name: 'Hamilton Rec Center',
+        address: '1900 Geary Blvd, San Francisco, CA 94115',
+        image: 'images/Hamilton Rec Center.jpeg',
+        zip: '94115',
+        courts: 4,
+        availability: 'Open',
+        type: 'Indoor',
+        map: 'https://goo.gl/maps/xyz1'
+      },
+      {
+        name: 'Eureka Valley Rec Center',
+        address: '100 Collingwood St, San Francisco, CA 94114',
+        image: 'images/Eureka Valley Rec Center.jpeg',
+        zip: '94114',
+        courts: 3,
+        availability: 'Open',
+        type: 'Indoor',
+        map: 'https://goo.gl/maps/xyz2'
+      }
+    ].map(court => `
+      <div class="card court-card mx-auto mb-3" style="max-width: 500px;">
+        <img src="${court.image}" class="card-img-top court-image" alt="${court.name}" />
+        <div class="card-body">
+          <h5 class="card-title">${court.name}</h5>
+          <p class="card-text">
+            <strong>Address:</strong> ${court.address}<br />
+            <strong>Zip:</strong> ${court.zip}<br />
+            <strong>Number of Courts:</strong> ${court.courts}<br />
+            <strong>Availability:</strong> ${court.availability}<br />
+            <strong>Type:</strong> ${court.type}<br />
+          </p>
+          <a href="${court.map}" target="_blank" class="btn btn-outline-dark btn-sm">View on Map</a>
+        </div>
+      </div>
+    `).join('');
+  });
 });

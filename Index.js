@@ -1,86 +1,96 @@
 "use strict";
 
-// Airtable API constants
-const OUTDOOR_URL = "https://api.airtable.com/v0/appyPO0xrhPPEy72s/Outdoor";
-const INDOOR_URL = "https://api.airtable.com/v0/appyPO0xrhPPEy72s/Indoor";
-const AIRTABLE_TOKEN = "patSMmsMZV3ld7iSm.adf9b201bf5b4fad908e372c585816eb2521b5e7086b7a3c9418caaa099ad817";
-
-// Fetch courts from Airtable and render simple cards
-async function fetchAndRenderCourts() {
-  const container = document.getElementById("carousel-inner");
-  container.innerHTML = "<p>Loading courts...</p>";
-  async function fetchAndRenderCourts(type = "outdoor") {
-    const url = type === "indoor" ? INDOOR_URL : OUTDOOR_URL;
-    try {
-      const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${AIRTABLE_TOKEN}`,
-      },
-    });
-    const data = await response.json();
-    if (!data.records) {
-      container.innerHTML = "<p>No courts found.</p>";
-      return;
+// Hardcoded court data for reliable display
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.getElementById('carousel-inner');
+  container.innerHTML = [
+    {
+      name: 'Eureka Valley Rec Center',
+      address: '100 Collingwood Street',
+      zip: '94114',
+      map: 'https://maps.app.goo.gl/J1B2Ld3BruhsXz5m9',
+      courts: 3,
+      availability: 'open play',
+      image: 'images/Eureka Valley Rec Center.jpeg'
+    },
+    {
+      name: 'Glen Park Rec Center',
+      address: "Bosworth & O'Shaughnessy 70 elk st.",
+      zip: '94131',
+      map: 'https://maps.app.goo.gl/1HXrwuUc7Ss23aTs9',
+      courts: 3,
+      availability: 'open play',
+      image: 'images/Glen Park Rec Center.jpg'
+    },
+    {
+      name: 'Hamilton Rec Center',
+      address: '1900 Geary Boulevard',
+      zip: '94115',
+      map: 'https://maps.app.goo.gl/8cPuWFgjy3C68Eid9',
+      courts: 3,
+      availability: 'open play',
+      image: 'images/Hamilton Rec Center.jpeg'
+    },
+    {
+      name: 'Minnie & Lovie Ward Rec Center',
+      address: '650 Capitol Avenue',
+      zip: '94112',
+      map: 'https://maps.app.goo.gl/QsF7V5KLagcjLzgn7',
+      courts: 3,
+      availability: 'open play',
+      image: 'images/Minnie & Lovie Ward Rec Center.jpeg'
+    },
+    {
+      name: 'Moscone Rec Center',
+      address: '1800 Chestnut Street',
+      zip: '94123',
+      map: 'https://maps.app.goo.gl/KfaXLLPWVxWbQ8af9',
+      courts: 1,
+      availability: 'open play',
+      image: 'images/Moscone Rec Center.jpg'
+    },
+    {
+      name: 'Palace of Fine Arts',
+      address: '3601 Lyon St',
+      zip: '94123',
+      map: 'https://maps.app.goo.gl/uXNnF5a2TG7oJEhMA',
+      courts: 3,
+      availability: 'open play',
+      image: 'images/Palace of Fine Arts.jpg'
+    },
+    {
+      name: 'Richmond Rec Center',
+      address: '251 18th Avenue',
+      zip: '94121',
+      map: 'https://maps.app.goo.gl/ijRteYM9eZ7M18Wz8',
+      courts: 4,
+      availability: 'open play',
+      image: 'images/Richmond Rec Center.jpeg'
+    },
+    {
+      name: 'Upper Noe Rec Center',
+      address: 'Day and Sanchez Street 295 Day Street',
+      zip: '94131',
+      map: 'https://maps.app.goo.gl/ip2nnnj7NV8fdocB9',
+      courts: 4,
+      availability: 'open play',
+      image: 'images/Upper Noe Rec Center.jpeg'
     }
-    container.innerHTML = data.records.map((rec) => {
-      const fields = rec.fields;
-      const imgSrc = fields.Images && fields.Images[0] ? fields.Images[0].url : `https://via.placeholder.com/500x250?text=${encodeURIComponent(fields.Name)}`;
-      return `
-        <div class="card court-card mx-auto mb-3" style="max-width: 500px; cursor:pointer;" onclick="showCourtDetail('${rec.id}')">
-          <img src="${imgSrc}" class="card-img-top court-image" alt="${fields.Name}" />
-          <div class="card-body">
-            <h5 class="card-title">${fields.Name}</h5>
-            <p class="card-text">${fields.Address || ""}</p>
-          </div>
-        </div>
-      `;
-    }).join("");
-  } catch (err) {
-    container.innerHTML = `<p>Error loading courts: ${err.message}</p>`;
-  }
-}
-
-// Show detailed view for a court
-async function showCourtDetail(recordId, type = "outdoor") {
-  const container = document.getElementById("carousel-inner");
-  container.innerHTML = "<p>Loading details...</p>";
-  const url = type === "indoor" ? INDOOR_URL : OUTDOOR_URL;
-    try {
-      const response = await fetch(`${url}/${recordId}`, {
-      headers: {
-        Authorization: `Bearer ${AIRTABLE_TOKEN}`,
-      },
-    });
-    const data = await response.json();
-    const fields = data.fields;
-    const imgSrc = fields.Images && fields.Images[0] ? fields.Images[0].url : `https://via.placeholder.com/500x250?text=${encodeURIComponent(fields.Name)}`;
-    container.innerHTML = `
-      <div class="card court-card mx-auto mb-3" style="max-width: 500px;">
-        <img src="${imgSrc}" class="card-img-top court-image" alt="${fields.Name}" />
-        <div class="card-body">
-          <h5 class="card-title">${fields.Name}</h5>
-          <p class="card-text">
-            <strong>Address:</strong> ${fields.Address || ""}<br />
-            <strong>Zip:</strong> ${fields.Zip || ""}<br />
-            <strong>Number of Courts:</strong> ${fields["Number of Courts"] || ""}<br />
-            <strong>Availability:</strong> ${fields.Availability || ""}<br />
-            <strong>Type:</strong> ${fields.Type || ""}<br />
-          </p>
-          ${fields.Map ? `<a href="${fields.Map}" target="_blank" class="btn btn-outline-dark btn-sm">View on Map</a>` : ""}
-          <button class="btn btn-secondary mt-2" onclick="fetchAndRenderCourts()">Back to List</button>
-        </div>
+  ].map(court => `
+    <div class="card court-card mx-auto mb-3" style="max-width: 500px;">
+      <img src="${court.image}" class="card-img-top court-image" alt="${court.name}" />
+      <div class="card-body">
+        <h5 class="card-title">${court.name}</h5>
+        <p class="card-text">
+          <strong>Address:</strong> ${court.address}<br />
+          <strong>Zip:</strong> ${court.zip}<br />
+          <strong>Number of Courts:</strong> ${court.courts}<br />
+          <strong>Availability:</strong> ${court.availability}<br />
+        </p>
+        <a href="${court.map}" target="_blank" class="btn btn-outline-dark btn-sm">View on Map</a>
       </div>
-    `;
-  } catch (err) {
-    container.innerHTML = `<p>Error loading details: ${err.message}</p>`;
-  }
-}
-
-// On page load, show courts list
-// To show indoor courts, call fetchAndRenderCourts('indoor')
-window.addEventListener("DOMContentLoaded", () => {
-  // This page now loads indoor courts by default
-  fetchAndRenderCourts('indoor');
+    </div>
+  `).join('');
 });
 
 

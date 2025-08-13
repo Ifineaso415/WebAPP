@@ -4,7 +4,7 @@
 // These are now only used for the proxy
 const OUTDOOR_URL = "https://api.airtable.com/v0/appyPO0xrhPPEy72s/Outdoor";
 const INDOOR_URL = "https://api.airtable.com/v0/appyPO0xrhPPEy72s/Indoor";
-const AIRTABLE_TOKEN = "patSMmsMZV3ld7iSm.adf9b201bf5b4fad908e372c585816eb2521b5e7086b7a3c9418caaa099ad817";
+const AIRTABLE_TOKEN = "patYyGMLKmvINy9XH.60aeff31972e965ec2110dcd9652fcebcd43964f633a2af0fc18aa72f5b191a5";
 
 // Fetch courts from Airtable and render simple cards
 async function fetchAndRenderCourts(type = "outdoor") {
@@ -87,6 +87,45 @@ async function showCourtDetail(recordId, type = "outdoor") {
 }
 
 // On page load, show outdoor courts list
-window.addEventListener("DOMContentLoaded", () => {
-  fetchAndRenderCourts("outdoor");
+import('./Index.js').then(() => {
+  window.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('carousel-inner');
+    container.innerHTML = [
+      {
+        name: 'Moscone Playground',
+        address: '1800 Chestnut St, San Francisco, CA 94123',
+        image: 'images/Moscone Playground.webp',
+        zip: '94123',
+        courts: 6,
+        availability: 'Open',
+        type: 'Outdoor',
+        map: 'https://goo.gl/maps/xyz3'
+      },
+      {
+        name: 'Jackson Playground',
+        address: '1500 Mariposa St, San Francisco, CA 94107',
+        image: 'images/Jackson Playground_files/499578554_18069213649949193_3539798198266338672_n.jpg',
+        zip: '94107',
+        courts: 4,
+        availability: 'Open',
+        type: 'Outdoor',
+        map: 'https://goo.gl/maps/xyz4'
+      }
+    ].map(court => `
+      <div class="card court-card mx-auto mb-3" style="max-width: 500px;">
+        <img src="${court.image}" class="card-img-top court-image" alt="${court.name}" />
+        <div class="card-body">
+          <h5 class="card-title">${court.name}</h5>
+          <p class="card-text">
+            <strong>Address:</strong> ${court.address}<br />
+            <strong>Zip:</strong> ${court.zip}<br />
+            <strong>Number of Courts:</strong> ${court.courts}<br />
+            <strong>Availability:</strong> ${court.availability}<br />
+            <strong>Type:</strong> ${court.type}<br />
+          </p>
+          <a href="${court.map}" target="_blank" class="btn btn-outline-dark btn-sm">View on Map</a>
+        </div>
+      </div>
+    `).join('');
+  });
 });
