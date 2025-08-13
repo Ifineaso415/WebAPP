@@ -1,99 +1,97 @@
 "use strict";
 
-const indoorCourts = [
-  {
-    name: "Eureka Valley Rec Center",
-    addr: "100 Collingwood Street, 94114",
-    hours: "Mon-Fri 9am-9pm, Sat 9am-5pm, Sun Closed",
-    nets: 3,
-    courts: 1,
-    map: "https://maps.app.goo.gl/J1B2Ld3BruhsXz5m9",
-  },
-  {
-    name: "Glen Park Rec Center",
-    addr: "Bosworth & O'Shaughnessy 70 Elk St., 94131",
-    hours: "Mon-Fri 9am-9pm, Sat 9am-5pm, Sun Closed",
-    nets: 3,
-    courts: 1,
-    map: "https://maps.app.goo.gl/1HXrwuUc7Ss23aTs9",
-  },
-  {
-    name: "Hamilton Rec Center",
-    addr: "1900 Geary Boulevard, 94115",
-    hours: "Mon-Fri 9am-9pm, Sat 9am-5pm, Sun Closed",
-    nets: 3,
-    courts: 1,
-    map: "https://maps.app.goo.gl/8cPuWFgjy3C68Eid9",
-  },
-  {
-    name: "Minnie & Lovie Ward Rec Center",
-    addr: "650 Capitol Avenue, 94112",
-    hours: "Mon-Fri 9am-9pm, Sat 9am-5pm, Sun Closed",
-    nets: 3,
-    courts: 1,
-    map: "https://maps.app.goo.gl/QsF7V5KLagcjLzgn7",
-  },
-  {
-    name: "Moscone Rec Center",
-    addr: "1800 Chestnut Street, 94123",
-    hours: "Mon-Fri 9am-9pm, Sat 9am-5pm, Sun Closed",
-    nets: 1,
-    courts: 1,
-    map: "https://maps.app.goo.gl/KfaXLLPWVxWbQ8af9",
-  },
-  {
-    name: "Palace of Fine Arts",
-    addr: "3601 Lyon St, 94123",
-    hours: "Mon-Fri 9am-9pm, Sat 9am-5pm, Sun Closed",
-    nets: 3,
-    courts: 1,
-    map: "https://maps.app.goo.gl/uXNnF5a2TG7oJEhMA",
-  },
-  {
-    name: "Richmond Rec Center",
-    addr: "251 18th Avenue, 94121",
-    hours: "Mon-Fri 9am-9pm, Sat 9am-5pm, Sun Closed",
-    nets: 4,
-    courts: 1,
-    map: "https://maps.app.goo.gl/ijRteYM9eZ7M18Wz8",
-  },
-  {
-    name: "Upper Noe Rec Center",
-    addr: "Day and Sanchez Street 295 Day Street, 94131",
-    hours: "Mon-Fri 9am-9pm, Sat 9am-5pm, Sun Closed",
-    nets: 4,
-    courts: 1,
-    map: "https://maps.app.goo.gl/ip2nnnj7NV8fdocB9",
-  },
-];
+// Airtable API constants
+const OUTDOOR_URL = "https://api.airtable.com/v0/appyPO0xrhPPEy72s/Outdoor";
+const INDOOR_URL = "https://api.airtable.com/v0/appyPO0xrhPPEy72s/Indoor";
+const AIRTABLE_TOKEN = "patSMmsMZV3ld7iSm.adf9b201bf5b4fad908e372c585816eb2521b5e7086b7a3c9418caaa099ad817";
 
-function createCourtCard(court) {
-  return `
-    <div class="col-md-4 mb-4">
-      <a href="${court.map}" target="_blank" class="text-decoration-none">
-        <div class="card h-100 shadow-sm">
-          <img src="https://via.placeholder.com/400x200?text=Pickleball+Court" class="card-img-top" alt="Court image placeholder">
-          <div class="card-body">
-            <h5 class="card-title">${court.name}</h5>
-            <p class="card-text">
-              ${court.addr}<br />
-              <strong>Hours:</strong> ${court.hours}<br />
-              <strong>Nets:</strong> ${court.nets}<br />
-              <strong>Courts:</strong> ${court.courts}
-            </p>
-            <span class="btn btn-sm btn-outline-primary mt-2">
-              <i class="fas fa-map-marker-alt"></i> View on Map
-            </span>
+// Fetch courts from Airtable and render simple cards
+async function fetchAndRenderCourts(type = "indoor") {
+  const container = document.getElementById("carousel-inner");
+  container.innerHTML = "<p>Loading courts...</p>";
+  const url = type === "indoor" ? INDOOR_URL : OUTDOOR_URL;
+  try {
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Bearer ${AIRTABLE_TOKEN}`,
+      },
+    });
+    const data = await response.json();
+    if (!data.records) {
+      container.innerHTML = "<p>No courts found.</p>";
+      return;
+    }
+    container.innerHTML = data.records
+      .map((rec) => {
+        const fields = rec.fields;
+        const imgSrc =
+          fields.Images && fields.Images[0]
+            ? fields.Images[0].url
+            : `https://via.placeholder.com/500x250?text=${encodeURIComponent(
+                fields.Name
+              )}`;
+        return `
+          <div class="card court-card mx-auto mb-3" style="max-width: 500px; cursor:pointer;" onclick="showCourtDetail('${rec.id}', 'indoor')">
+            <img src="${imgSrc}" class="card-img-top court-image" alt="${fields.Name}" />
+            <div class="card-body">
+              <h5 class="card-title">${fields.Name}</h5>
+              <p class="card-text">${fields.Address || ""}</p>
+            </div>
           </div>
+        `;
+      })
+      .join("");
+  } catch (err) {
+    container.innerHTML = `<p>Error loading courts: ${err.message}</p>`;
+  }
+}
+
+// Show detailed view for a court
+async function showCourtDetail(recordId, type = "indoor") {
+  const container = document.getElementById("carousel-inner");
+  container.innerHTML = "<p>Loading details...</p>";
+  const url = type === "indoor" ? INDOOR_URL : OUTDOOR_URL;
+  try {
+    const response = await fetch(`${url}/${recordId}`, {
+      headers: {
+        Authorization: `Bearer ${AIRTABLE_TOKEN}`,
+      },
+    });
+    const data = await response.json();
+    const fields = data.fields;
+    const imgSrc =
+      fields.Images && fields.Images[0]
+        ? fields.Images[0].url
+        : `https://via.placeholder.com/500x250?text=${encodeURIComponent(
+            fields.Name
+          )}`;
+    container.innerHTML = `
+      <div class="card court-card mx-auto mb-3" style="max-width: 500px;">
+        <img src="${imgSrc}" class="card-img-top court-image" alt="${fields.Name}" />
+        <div class="card-body">
+          <h5 class="card-title">${fields.Name}</h5>
+          <p class="card-text">
+            <strong>Address:</strong> ${fields.Address || ""}<br />
+            <strong>Zip:</strong> ${fields.Zip || ""}<br />
+            <strong>Number of Courts:</strong> ${fields["Number of Courts"] || ""}<br />
+            <strong>Availability:</strong> ${fields.Availability || ""}<br />
+            <strong>Type:</strong> ${fields.Type || ""}<br />
+          </p>
+          ${
+            fields.Map
+              ? `<a href="${fields.Map}" target="_blank" class="btn btn-outline-dark btn-sm">View on Map</a>`
+              : ""
+          }
+          <button class="btn btn-secondary mt-2" onclick="fetchAndRenderCourts('indoor')">Back to List</button>
         </div>
-      </a>
-    </div>`;
+      </div>
+    `;
+  } catch (err) {
+    container.innerHTML = `<p>Error loading details: ${err.message}</p>`;
+  }
 }
 
-function renderIndoorCourts() {
-  document.getElementById("indoor-list").innerHTML = indoorCourts
-    .map(createCourtCard)
-    .join("");
-}
-
-document.addEventListener("DOMContentLoaded", renderIndoorCourts);
+// On page load, show indoor courts list
+window.addEventListener("DOMContentLoaded", () => {
+  fetchAndRenderCourts("indoor");
+});
