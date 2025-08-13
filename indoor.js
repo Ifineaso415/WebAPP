@@ -5,12 +5,16 @@ const OUTDOOR_URL = "https://api.airtable.com/v0/appyPO0xrhPPEy72s/Outdoor";
 const INDOOR_URL = "https://api.airtable.com/v0/appyPO0xrhPPEy72s/Indoor";
 const AIRTABLE_TOKEN = "patSMmsMZV3ld7iSm.adf9b201bf5b4fad908e372c585816eb2521b5e7086b7a3c9418caaa099ad817";
 
-<<<<<<< Updated upstream
 // Fetch courts from Airtable and render simple cards
 async function fetchAndRenderCourts(type = "indoor") {
   const container = document.getElementById("carousel-inner");
+  if (!container) {
+    console.error('Element with id "carousel-inner" not found.');
+    return;
+  }
   container.innerHTML = "<p>Loading courts...</p>";
-  const url = type === "indoor" ? INDOOR_URL : OUTDOOR_URL;
+  // Fetch directly from Airtable
+  const url = INDOOR_URL;
   try {
     const response = await fetch(url, {
       headers: {
@@ -25,6 +29,7 @@ async function fetchAndRenderCourts(type = "indoor") {
     container.innerHTML = data.records
       .map((rec) => {
         const fields = rec.fields;
+        console.log('Airtable fields:', fields); // Debug log
         const imgSrc =
           fields.Images && fields.Images[0]
             ? fields.Images[0].url
@@ -38,25 +43,6 @@ async function fetchAndRenderCourts(type = "indoor") {
               <h5 class="card-title">${fields.Name}</h5>
               <p class="card-text">${fields.Address || ""}</p>
             </div>
-=======
-function createCourtCard(court) {
-  return `
-    <div class="col-md-4 mb-4">
-      <a href="${court.map}" target="_blank" class="text-decoration-none">
-        <div class="card h-100 shadow-sm">
-          <img src="${court.image}" class="card-img-top" alt="${court.name}">
-          <div class="card-body">
-            <h5 class="card-title">${court.name}</h5>
-            <p class="card-text">
-              ${court.addr}<br />
-              <strong>Hours:</strong> ${court.hours}<br />
-              <strong>Nets:</strong> ${court.nets}<br />
-              <strong>Courts:</strong> ${court.courts}
-            </p>
-            <span class="btn btn-sm btn-outline-primary mt-2">
-              <i class="fas fa-map-marker-alt"></i> View on Map
-            </span>
->>>>>>> Stashed changes
           </div>
         `;
       })
@@ -69,10 +55,15 @@ function createCourtCard(court) {
 // Show detailed view for a court
 async function showCourtDetail(recordId, type = "indoor") {
   const container = document.getElementById("carousel-inner");
+  if (!container) {
+    console.error('Element with id "carousel-inner" not found.');
+    return;
+  }
   container.innerHTML = "<p>Loading details...</p>";
-  const url = type === "indoor" ? INDOOR_URL : OUTDOOR_URL;
+  // Fetch directly from Airtable
+  const url = `${INDOOR_URL}/${recordId}`;
   try {
-    const response = await fetch(`${url}/${recordId}`, {
+    const response = await fetch(url, {
       headers: {
         Authorization: `Bearer ${AIRTABLE_TOKEN}`,
       },
@@ -112,6 +103,6 @@ async function showCourtDetail(recordId, type = "indoor") {
 }
 
 // On page load, show indoor courts list
-window.addEventListener("DOMContentLoaded", () => {
-  fetchAndRenderCourts("indoor");
+document.addEventListener('DOMContentLoaded', function() {
+  fetchAndRenderCourts('indoor');
 });
